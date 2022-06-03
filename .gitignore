@@ -2,3 +2,6 @@
 .idea/
 .DS_Store
 .env
+# Local database
+/djangoforms/db.sqlite3
+

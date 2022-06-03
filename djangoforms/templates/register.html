@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<form method="POST">
+    {% csrf_token %}
+    <table>
+        {% for item in participants %}
+        <tr>
+            <!-- Update table name -->
+            <td>{{ item.name }}</td>
+            <td><input label="{{ item.label }}" type="{{ item.type }}" name="{{ item.name }}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <button type="submit">Submit</button>
+</form>
