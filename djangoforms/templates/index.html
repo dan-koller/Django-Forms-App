@@ -3,36 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Welcome</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
 </head>
 <body>
-    <h2>Welcome to the reading club</h2>
-    <p>This is a demo application for a Django project.</p>
+    <div class="content">
+        <div class="content-header">
+            <h2>Welcome to the reading club</h2>
+            <p>This is a demo application for a Django project.</p>
 
-    <!-- TODO: Fix href link to support Django link... -->
-    <form>
-        <button type="submit" formaction="http://127.0.0.1:8000/register/">Click here to join!</button>
-    </form>
-
-    <!--  Print current club participants from database  -->
-    {% csrf_token %}
-    <p>Current club participants:</p>
-
-    {% if data %}
-    <table>
-        {% for field in fields %}
-            <tr>
+            <!-- TODO: Fix href link to support Django link... -->
+            <form>
+                <button class="submit-button" type="submit" formaction="http://127.0.0.1:8000/register/">Click here to join!</button>
+            </form>
+        </div>
+        <div class="table">
+             <!--  Print current club participants from database  -->
+            {% csrf_token %}
+            <p>Current club participants:</p>
+            {% if data %}
+            <table>
+                {% for field in fields %}
                 <th>{{ field.name }}</th>
-            </tr>
-        {% endfor %}
-        {% for item in data %}
-        <tr>
-            <td>{{ item.value }}</td>
-        </tr>
-    {% endfor %}
-    {% else %}
-        <p>No participants so far. Be the first!</p>
-    {% endif %}
-</table>
-
+                {% endfor %}
+                {% for item in data %}
+                <tr>
+                    <td>{{ item.value }}</td>
+                </tr>
+                {% endfor %}
+            <!--  Alternating message if no users are signed up yet  -->
+            {% else %}
+                <p>No participants so far. Be the first!</p>
+            {% endif %}
+            </table>
+        </div>
+    </div>
 </body>
 </html>
