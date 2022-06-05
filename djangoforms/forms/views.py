@@ -8,16 +8,16 @@ from .models import Participants, FormField, FormData
 class MainView(View):
     def get(self, request):
         # Get all data from the database
-        query_results = Participants.objects.all()
+        results = Participants.objects.all()
 
         # Get all fields from the database
         fields = FormField.objects.all()
 
-        # Get all data from the database
+        # Get all form data from the database
         data = FormData.objects.all()
 
         # Render the template
-        return render(request, 'index.html', {'query_results': query_results, 'fields': fields, 'data': data})
+        return render(request, 'index.html', {'results': results, 'fields': fields, 'data': data})
 
 
 class RegisterView(View):
@@ -28,11 +28,20 @@ class RegisterView(View):
         if form.is_valid():
             # Create new entry for every field in the registration form
             for field in FormField.objects.all():
-                # Create new entry in the database
                 new_entry = FormData(field_id=field.id, value=request.POST[field.name])
                 new_entry.save()
 
+            # Create new participant entry
+            new_participant = Participants(name=request.POST["name"], age=request.POST["age"],
+                                           favorite_lang=request.POST["favorite_lang"],
+                                           birthday=request.POST["birthday"])
+            new_participant.save()
+
             return redirect("/")
+        else:
+            # Print field errors to console
+            for f in form:
+                print("Field Error:", f.name, f.errors)
 
     def get(self, request):
         participants = FormField.objects.all()

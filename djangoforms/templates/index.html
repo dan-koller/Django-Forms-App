@@ -2,41 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Welcome</title>
+    <title>The dev club - powered by Django Forms</title>
     {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
 </head>
 <body>
-    <div class="content">
-        <div class="content-header">
-            <h2>Welcome to the reading club</h2>
-            <p>This is a demo application for a Django project.</p>
-
-            <!-- TODO: Fix href link to support Django link... -->
-            <form>
-                <button class="submit-button" type="submit" formaction="http://127.0.0.1:8000/register/">Click here to join!</button>
-            </form>
+<div class="header_container">
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">The dev club</a>
+    </nav>
+</div>
+<div class="content">
+    <div class="content-header">
+        <h1>Welcome to the Developer club!</h1>
+        <div class="intro">
+            <p>This is a demo application to work with forms in Django.</p>
+            <p>The project originated from a <a
+                    href="https://hyperskill.org/projects/172">JetBrains Academy</a> track.</p>
+            <p>Feel free to take a look around and signup!</p>
         </div>
-        <div class="table">
-             <!--  Print current club participants from database  -->
-            {% csrf_token %}
-            <p>Current club participants:</p>
-            {% if data %}
-            <table>
+        <form>
+            <button class="btn btn-primary" type="submit" formaction="../register/">Click here to
+                join!
+            </button>
+        </form>
+    </div>
+    <div class="current-users">
+        {% csrf_token %}
+        <!--  Print current club participants from database  -->
+        <p>Current club participants:</p>
+        {% if data %}
+        <table class="table table-hover">
+            <thead>
+            <tr>
                 {% for field in fields %}
                 <th>{{ field.name }}</th>
                 {% endfor %}
-                {% for item in data %}
-                <tr>
-                    <td>{{ item.value }}</td>
-                </tr>
-                {% endfor %}
-            <!--  Alternating message if no users are signed up yet  -->
-            {% else %}
-                <p>No participants so far. Be the first!</p>
-            {% endif %}
-            </table>
-        </div>
+            </tr>
+            </thead>
+            <tbody>
+            {% for r in results %}
+            <tr>
+                <td>{{ r.name }}</td>
+                <td>{{ r.age }}</td>
+                <td>{{ r.favorite_lang }}</td>
+                <td>{{ r.birthday }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <!--  Alternating message if no users are signed up yet  -->
+        {% else %}
+        <p>No participants so far. Be the first!</p>
+        {% endif %}
     </div>
+</div>
 </body>
 </html>

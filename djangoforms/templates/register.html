@@ -1,14 +1,42 @@
 <!DOCTYPE html>
-<form method="POST">
-    {% csrf_token %}
-    <table>
-        {% for item in participants %}
-        <tr>
-            <!-- Update table name -->
-            <td>{{ item.name }}</td>
-            <td><input label="{{ item.label }}" type="{{ item.type }}" name="{{ item.name }}"></td>
-        </tr>
-        {% endfor %}
-    </table>
-    <button type="submit">Submit</button>
-</form>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}"/>
+</head>
+<body>
+<div class="header_container">
+    <nav class="navbar navbar-dark bg-primary">
+        <a class="navbar-brand" href="../">Django Forms</a>
+    </nav>
+</div>
+<div class="content">
+    <div class="content-header">
+        <h1>Join the Developer club!</h1>
+        <div class="intro">
+            <p>We're really happy to welcome you as a new member!</p>
+            <p>Please fill out the form below to join the party 🥳</p>
+        </div>
+    </div>
+    <div class="signup-form">
+        <form method="POST">
+            {% csrf_token %}
+            <table class="table table-hover">
+                {% for item in participants %}
+                <tr>
+                    <!-- Update table name -->
+                    <td>{{ item.name }}</td>
+                    <td><input label="{{ item.label }}" type="{{ item.type }}" name="{{ item.name }}"></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+</body>
+

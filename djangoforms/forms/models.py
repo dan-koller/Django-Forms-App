@@ -5,7 +5,8 @@ from django.db import models
 class Participants(models.Model):
     name = models.CharField(max_length=100)
     age = models.IntegerField()
-    favorite_book = models.CharField(max_length=100)
+    favorite_lang = models.CharField(max_length=100)
+    birthday = models.DateField(null=True)
 
 
 # Stores information on the existing forms

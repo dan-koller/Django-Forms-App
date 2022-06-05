@@ -5,7 +5,8 @@ from .models import Participants
 class RegistrationForm(forms.Form):
     name = forms.CharField(label="your name")
     age = forms.IntegerField(label="your age")
-    favorite_book = forms.CharField(label="your favorite book")
+    favorite_lang = forms.CharField(label="your favorite language")
+    birthday = forms.DateField(label="your birthday")
 
     class Meta:
         model = Participants
@@ -13,5 +14,6 @@ class RegistrationForm(forms.Form):
         fields = [
             "name",
             "age",
-            "favorite_book"
+            "favorite_lang",
+            "birthday"
         ]
